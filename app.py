@@ -1,25 +1,19 @@
-from flask import Flask, jsonify, send_file
+from flask import Flask, jsonify, send_file, render_template
 from canvas_calendar import CanvasCalendar
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load environment variables
 load_dotenv()
 
 @app.route('/', methods=['GET'])
 def root():
-    """Root endpoint with API information"""
-    return jsonify({
-        "name": "Canvas Calendar API",
-        "version": "1.0",
-        "endpoints": {
-            "health": "/api/health - Check API health",
-            "assignments": "/api/assignments - Get assignments as JSON",
-            "calendar": "/api/calendar - Download calendar file"
-        }
-    })
+    """Serve the main page"""
+    return render_template('index.html')
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
