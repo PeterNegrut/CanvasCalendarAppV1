@@ -8,6 +8,19 @@ app = Flask(__name__)
 # Load environment variables
 load_dotenv()
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint with API information"""
+    return jsonify({
+        "name": "Canvas Calendar API",
+        "version": "1.0",
+        "endpoints": {
+            "health": "/api/health - Check API health",
+            "assignments": "/api/assignments - Get assignments as JSON",
+            "calendar": "/api/calendar - Download calendar file"
+        }
+    })
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
