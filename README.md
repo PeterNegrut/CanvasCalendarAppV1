@@ -59,4 +59,4 @@ To integrate with a mobile app:
 
 - Never commit your `.env` file or expose your Canvas API token
 - Use HTTPS in production
-- Consider implementing authentication for the API endpoints 
+- Consider implementing authentication for the API endpoints
