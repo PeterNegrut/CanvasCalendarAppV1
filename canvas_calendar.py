@@ -5,6 +5,9 @@ import os
 from dotenv import load_dotenv
 import json
 from collections import defaultdict
+import logging
+
+logger = logging.getLogger(__name__)
 
 class CanvasCalendar:
     def __init__(self):
@@ -12,6 +15,16 @@ class CanvasCalendar:
         load_dotenv()
         self.api_token = os.getenv('CANVAS_API_TOKEN')
         self.canvas_url = os.getenv('CANVAS_URL')
+        
+        # Validate environment variables
+        if not self.api_token:
+            logger.error("CANVAS_API_TOKEN is not set")
+            raise ValueError("CANVAS_API_TOKEN environment variable is not set")
+        if not self.canvas_url:
+            logger.error("CANVAS_URL is not set")
+            raise ValueError("CANVAS_URL environment variable is not set")
+            
+        logger.info(f"Using Canvas URL: {self.canvas_url}")
         self.headers = {
             'Authorization': f'Bearer {self.api_token}',
             'Content-Type': 'application/json'
