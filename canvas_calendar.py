@@ -10,16 +10,18 @@ import logging
 logger = logging.getLogger(__name__)
 
 class CanvasCalendar:
-    def __init__(self):
+    def __init__(self, access_token=None):
         # Load environment variables
         load_dotenv()
-        self.api_token = os.getenv('CANVAS_API_TOKEN')
         self.canvas_url = os.getenv('CANVAS_URL')
+        
+        # Use provided access token or fall back to environment variable
+        self.api_token = access_token or os.getenv('CANVAS_API_TOKEN')
         
         # Validate environment variables
         if not self.api_token:
-            logger.error("CANVAS_API_TOKEN is not set")
-            raise ValueError("CANVAS_API_TOKEN environment variable is not set")
+            logger.error("No access token provided")
+            raise ValueError("Access token is required")
         if not self.canvas_url:
             logger.error("CANVAS_URL is not set")
             raise ValueError("CANVAS_URL environment variable is not set")
